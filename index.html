@@ -133,7 +133,7 @@
             color: #444;
         }
 
-        /* --- NOWE STYLE DLA POGODY --- */
+        /* Sekcja Pogodowa */
         .weather-section {
             background-color: var(--card-bg);
             border-radius: var(--border-radius);
@@ -178,6 +178,56 @@
         .weather-error {
             color: #d9534f;
             font-size: 0.85rem;
+        }
+
+        /* NOWE STYLE: Sekcja Słowniczka */
+        .dictionary-section {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .dictionary-section h2 {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .dict-pl {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+
+        .dict-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+        }
+
+        .dict-card {
+            background-color: #f0f4f5;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1rem;
+        }
+
+        .dict-lang {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .dict-word {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1.1rem;
         }
 
         footer {
@@ -238,6 +288,25 @@
                 </div>
             </div>
         </section>
+
+        <section class="dictionary-section">
+            <h2>📚 Słowniczek podróżnika na dziś</h2>
+            <div class="dict-pl" id="dict-pl">Ładowanie...</div>
+            <div class="dict-grid">
+                <div class="dict-card">
+                    <div class="dict-lang">🇩🇪 Niemiecki</div>
+                    <div class="dict-word" id="dict-de">--</div>
+                </div>
+                <div class="dict-card">
+                    <div class="dict-lang">🇸🇮 Słoweński</div>
+                    <div class="dict-word" id="dict-si">--</div>
+                </div>
+                <div class="dict-card">
+                    <div class="dict-lang">🇭🇷 Chorwacki</div>
+                    <div class="dict-word" id="dict-hr">--</div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <script>
@@ -294,15 +363,42 @@
             "Nic tak nie buduje dobrego humoru jak świadomość, że wielka trasa jest już dopracowana."
         ];
 
+        // NOWA LISTA: Słowniczek podróżnika
+        var dictionary = [
+            { pl: "Dzień dobry", de: "Guten Tag", si: "Dober dan", hr: "Dobar dan" },
+            { pl: "Dziękuję", de: "Danke", si: "Hvala", hr: "Hvala" },
+            { pl: "Proszę (podając/prosząc)", de: "Bitte", si: "Prosim", hr: "Molim" },
+            { pl: "Przepraszam", de: "Entschuldigung", si: "Oprostite", hr: "Oprostite" },
+            { pl: "Tak / Nie", de: "Ja / Nein", si: "Da / Ne", hr: "Da / Ne" },
+            { pl: "Gdzie jest toaleta?", de: "Wo ist die Toilette?", si: "Kje je stranišče?", hr: "Gdje je WC?" },
+            { pl: "Ile to kosztuje?", de: "Wie viel kostet das?", si: "Koliko to stane?", hr: "Koliko to košta?" },
+            { pl: "Poproszę rachunek", de: "Die Rechnung, bitte", si: "Račun, prosim", hr: "Račun, molim" },
+            { pl: "Smacznego!", de: "Guten Appetit!", si: "Dober tek!", hr: "Dobar tek!" },
+            { pl: "Jedno piwo, proszę", de: "Ein Bier, bitte", si: "Eno pivo, prosim", hr: "Jedno pivo, molim" },
+            { pl: "Gdzie jest plaża?", de: "Wo ist der Strand?", si: "Kje je plaža?", hr: "Gdje je plaža?" },
+            { pl: "Nie rozumiem", de: "Ich verstehe nicht", si: "Ne razumem", hr: "Ne razumijem" },
+            { pl: "Do widzenia", de: "Auf Wiedersehen", si: "Nasvidenje", hr: "Doviđenja" },
+            { pl: "Na zdrowie! (toast)", de: "Prost!", si: "Na zdravje!", hr: "Živjeli!" },
+            { pl: "Pomocy!", de: "Hilfe!", si: "Na pomoč!", hr: "Upomoć!" }
+        ];
+
         function getDailyContent() {
             var now = new Date();
             var dayId = now.getFullYear() * 365 + (now.getMonth() + 1) * 31 + now.getDate();
             
             var factIndex = dayId % facts.length;
             var motivationIndex = dayId % motivations.length;
+            // Nowy indeks dla słowniczka
+            var dictIndex = dayId % dictionary.length;
             
             document.getElementById("daily-fact").textContent = facts[factIndex];
             document.getElementById("daily-motivation").textContent = motivations[motivationIndex];
+            
+            // Podmiana tekstów w słowniczku
+            document.getElementById("dict-pl").textContent = dictionary[dictIndex].pl;
+            document.getElementById("dict-de").textContent = dictionary[dictIndex].de;
+            document.getElementById("dict-si").textContent = dictionary[dictIndex].si;
+            document.getElementById("dict-hr").textContent = dictionary[dictIndex].hr;
         }
 
         function updateCountdown() {
@@ -332,9 +428,7 @@
             document.getElementById("progress-percent").textContent = percent;
         }
 
-        // --- NOWA FUNKCJA DO POBIERANIA POGODY ---
         async function fetchWeather() {
-            // Współrzędne lokalizacji
             const locations = [
                 { id: 'weather-prusim', lat: 52.593, lon: 15.934 },
                 { id: 'weather-gunzburg', lat: 48.424, lon: 10.300 },
@@ -345,7 +439,6 @@
             for (const loc of locations) {
                 const element = document.querySelector(`#${loc.id} .weather-temp`);
                 try {
-                    // Wykorzystanie bezpłatnego API Open-Meteo
                     const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${loc.lat}&longitude=${loc.lon}&current_weather=true`);
                     if (!response.ok) throw new Error("Błąd sieci");
                     const data = await response.json();
@@ -363,11 +456,9 @@
         window.onload = function() {
             updateCountdown();
             getDailyContent();
-            fetchWeather(); // Uruchomienie skryptu pogodowego
+            fetchWeather();
             
-            // Odświeżaj licznik co godzinę
             setInterval(updateCountdown, 3600000);
-            // Odświeżaj pogodę co godzinę, by nie obciążać API niepotrzebnie
             setInterval(fetchWeather, 3600000); 
         };
     </script>
