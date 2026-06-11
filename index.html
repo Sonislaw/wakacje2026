@@ -102,6 +102,47 @@
             font-weight: 500;
         }
 
+        /* NOWE STYLE: Widokówka Dnia */
+        .postcard-section {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .postcard-section h2 {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .postcard-wrapper {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            background-color: #fff;
+        }
+
+        .postcard-img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            display: block;
+            border-bottom: 4px solid var(--accent-color);
+        }
+
+        .postcard-caption {
+            padding: 16px;
+            font-size: 1.05rem;
+            color: #444;
+            font-weight: 500;
+            background-color: #fcfbf9;
+        }
+
         .grid-sections {
             margin-bottom: 30px;
         }
@@ -275,7 +316,7 @@
             line-height: 1.5;
         }
 
-        /* NOWE STYLE: Harmonogram Trasy */
+        /* Harmonogram Trasy */
         .itinerary-section {
             background-color: var(--card-bg);
             border-radius: var(--border-radius);
@@ -307,7 +348,6 @@
             gap: 8px;
         }
 
-        /* Styl dla dni wolnych od jazdy */
         .itinerary-card.rest-day {
             border-left-color: #bccad6; 
             background-color: #fdfdfd;
@@ -397,6 +437,14 @@
             <div class="progress-container">
                 <progress id="progress" value="0" max="100"></progress>
                 <div class="progress-text">Ładowanie wakacji: <span id="progress-percent">0</span>%</div>
+            </div>
+        </section>
+
+        <section class="postcard-section">
+            <h2>📸 Widokówka Dnia</h2>
+            <div class="postcard-wrapper">
+                <img id="postcard-img" class="postcard-img" src="https://picsum.photos/seed/placeholder/800/400" alt="Widokówka z trasy">
+                <div id="postcard-caption" class="postcard-caption">Szukam dzisiejszej widokówki...</div>
             </div>
         </section>
 
@@ -585,7 +633,76 @@
     </main>
 
     <script>
-        // Lista ciekawostek
+        // --- NOWA LISTA: 63 Widokówki na każdy dzień odliczania (od 62 dni do 0) ---
+        // Indeks w tablicy odpowiada dokładnie liczbie dni pozostałych do wyjazdu!
+        // Przykład: postcards[0] pokaże się w dniu wyjazdu (0 dni).
+        // Możesz podmienić 'img' na własne linki do zdjęć w dowolnym momencie.
+        var postcards = [
+            { img: "https://picsum.photos/seed/kamper0/800/400", desc: "🎉 TO JUŻ DZIŚ! 0 dni! Odpalamy silnik kampera i ruszamy po przygodę. Kierunek: Olandia!" }, // 0
+            { img: "https://picsum.photos/seed/kamper1/800/400", desc: "🎒 Został tylko 1 dzień! Ostatnie pakowanie. Kamper czeka gotowy na wielką trasę." }, // 1
+            { img: "https://picsum.photos/seed/kamper2/800/400", desc: "⏳ 2 dni. Emocje sięgają zenitu! Pamiętaliście o apteczce i biletach?" }, // 2
+            { img: "https://picsum.photos/seed/kamper3/800/400", desc: "🏖️ 3 dni. Wyspa Rab już powoli ukazuje się na horyzoncie naszych myśli." }, // 3
+            { img: "https://picsum.photos/seed/kamper4/800/400", desc: "🚐 4 dni. Zbliżamy się do startu wielkimi krokami." }, // 4
+            { img: "https://picsum.photos/seed/kamper5/800/400", desc: "⛴️ 5 dni. Kto nie może się już doczekać promu na wyspę Rab?" }, // 5
+            { img: "https://picsum.photos/seed/kamper6/800/400", desc: "🏔️ 6 dni. Alpy i słoweńskie krajobrazy wzywają!" }, // 6
+            { img: "https://picsum.photos/seed/kamper7/800/400", desc: "🇩🇪 7 dni. Zaledwie tydzień dzieli nas od wielkiej europejskiej trasy." }, // 7
+            { img: "https://picsum.photos/seed/kamper8/800/400", desc: "🎢 8 dni. Rollercoastery w Legolandzie są coraz bliżej." }, // 8
+            { img: "https://picsum.photos/seed/kamper9/800/400", desc: "🏕️ 9 dni do zapachu porannej kawy na kempingu w Słowenii." }, // 9
+            { img: "https://picsum.photos/seed/kamper10/800/400", desc: "🔟 Równo 10 dni! Odliczanie nabiera kosmicznego tempa." }, // 10
+            { img: "https://picsum.photos/seed/kamper11/800/400", desc: "🌊 11 dni. Ciepłe morze Adriatyckie czeka." }, // 11
+            { img: "https://picsum.photos/seed/kamper12/800/400", desc: "🧳 12 dni. Czy masz już przygotowaną matę plażową?" }, // 12
+            { img: "https://picsum.photos/seed/kamper13/800/400", desc: "🚐 13 dni. Nasz kamper to wkrótce nasz dom na kółkach!" }, // 13
+            { img: "https://picsum.photos/seed/kamper14/800/400", desc: "📅 14 dni. Równo dwa tygodnie do włączenia trybu WAKACJE." }, // 14
+            { img: "https://picsum.photos/seed/kamper15/800/400", desc: "🏰 15 dni. Zamek z klocków? Nie, to tylko Miniland w Niemczech!" }, // 15
+            { img: "https://picsum.photos/seed/kamper16/800/400", desc: "🍕 16 dni. Zbieramy apetyt na prawdziwą bałkańską ucztę." }, // 16
+            { img: "https://picsum.photos/seed/kamper17/800/400", desc: "🌅 17 dni do pierwszego zachodu słońca na trasie." }, // 17
+            { img: "https://picsum.photos/seed/kamper18/800/400", desc: "🌲 18 dni. Olandia i otulina puszczy będą wspaniałym początkiem." }, // 18
+            { img: "https://picsum.photos/seed/kamper19/800/400", desc: "🛣️ 19 dni. Setki kilometrów do zrobienia, miliony wspomnień do zdobycia." }, // 19
+            { img: "https://picsum.photos/seed/kamper20/800/400", desc: "☀️ 20 dni. Złapcie głęboki oddech, cel jest już naprawdę blisko." }, // 20
+            { img: "https://picsum.photos/seed/kamper21/800/400", desc: "📅 21 dni. Dokładnie 3 tygodnie do startu!" }, // 21
+            { img: "https://picsum.photos/seed/kamper22/800/400", desc: "🇩🇪 22 dni. Bawarskie autostrady i postoje w Autohof czekają." }, // 22
+            { img: "https://picsum.photos/seed/kamper23/800/400", desc: "🇸🇮 23 dni. Słowenia zaskoczy nas swoim wszechobecnym błękitem i zielenią." }, // 23
+            { img: "https://picsum.photos/seed/kamper24/800/400", desc: "🇭🇷 24 dni. Rajska Plaża (Paradise Beach) na wyspie Rab." }, // 24
+            { img: "https://picsum.photos/seed/kamper25/800/400", desc: "🚐 25 dni. Pamiętacie, żeby zabrać ulubioną kawę do kawiarki?" }, // 25
+            { img: "https://picsum.photos/seed/kamper26/800/400", desc: "💦 26 dni do szaleństw w wodzie." }, // 26
+            { img: "https://picsum.photos/seed/kamper27/800/400", desc: "🎵 27 dni. Czas zacząć myśleć nad wspólną muzyczną playlistą!" }, // 27
+            { img: "https://picsum.photos/seed/kamper28/800/400", desc: "📅 28 dni. Dokładnie 4 tygodnie do dnia zero." }, // 28
+            { img: "https://picsum.photos/seed/kamper29/800/400", desc: "😎 29 dni. Okulary przeciwsłoneczne gotowe?" }, // 29
+            { img: "https://picsum.photos/seed/kamper30/800/400", desc: "📅 30 dni! Równo miesiąc!" }, // 30
+            { img: "https://picsum.photos/seed/kamper31/800/400", desc: "🥨 31 dni do chrupiącego precla w południowych Niemczech." }, // 31
+            { img: "https://picsum.photos/seed/kamper32/800/400", desc: "🚐 32 dni do uruchomienia trybu pełnego relaksu." }, // 32
+            { img: "https://picsum.photos/seed/kamper33/800/400", desc: "🌞 33 dni do dni pełnych beztroski i ładowania baterii." }, // 33
+            { img: "https://picsum.photos/seed/kamper34/800/400", desc: "🌲 34 dni. Zapach lasu, szum jeziora, wolność." }, // 34
+            { img: "https://picsum.photos/seed/kamper35/800/400", desc: "📅 35 dni. Pięć tygodni dzieli nas od wyjazdu z Gdańska." }, // 35
+            { img: "https://picsum.photos/seed/kamper36/800/400", desc: "🏖️ 36 dni do spacerów wzdłuż cudownych plaż." }, // 36
+            { img: "https://picsum.photos/seed/kamper37/800/400", desc: "🚢 37 dni do rejsu promem Stinica - Mišnjak." }, // 37
+            { img: "https://picsum.photos/seed/kamper38/800/400", desc: "🏔️ 38 dni do majestatycznych widoków z Camping Sobec." }, // 38
+            { img: "https://picsum.photos/seed/kamper39/800/400", desc: "🏕️ 39 dni do pierwszej wspólnie rozłożonej markizy." }, // 39
+            { img: "https://picsum.photos/seed/kamper40/800/400", desc: "🧱 40 dni. Ponad 58 milionów klocków LEGO czeka na odkrycie!" }, // 40
+            { img: "https://picsum.photos/seed/kamper41/800/400", desc: "🗺️ 41 dni. Trasa zaplanowana perfekcyjnie." }, // 41
+            { img: "https://picsum.photos/seed/kamper42/800/400", desc: "📅 42 dni. Dokładnie 6 tygodni oczekiwania." }, // 42
+            { img: "https://picsum.photos/seed/kamper43/800/400", desc: "🍦 43 dni. Lody będą smakować wybornie." }, // 43
+            { img: "https://picsum.photos/seed/kamper44/800/400", desc: "📸 44 dni. Przygotujcie miejsce na telefonach, zdjęć będzie tysiące!" }, // 44
+            { img: "https://picsum.photos/seed/kamper45/800/400", desc: "🌅 45 dni. Wieczory przy kamperze to najlepsza integracja." }, // 45
+            { img: "https://picsum.photos/seed/kamper46/800/400", desc: "🚐 46 dni do tego uczucia, kiedy wszystkie okna są otwarte podczas jazdy." }, // 46
+            { img: "https://picsum.photos/seed/kamper47/800/400", desc: "🇸🇮 47 dni. Bled i Julijskie Alpy w pełnej krasie." }, // 47
+            { img: "https://picsum.photos/seed/kamper48/800/400", desc: "🇭🇷 48 dni do ciepłego wiatru na wyspie Rab." }, // 48
+            { img: "https://picsum.photos/seed/kamper49/800/400", desc: "📅 49 dni. Równo 7 tygodni." }, // 49
+            { img: "https://picsum.photos/seed/kamper50/800/400", desc: "🔟 50 dni. Łamiemy kolejną barierę w odliczaniu!" }, // 50
+            { img: "https://picsum.photos/seed/kamper51/800/400", desc: "🌊 51 dni do poczucia piasku pod stopami." }, // 51
+            { img: "https://picsum.photos/seed/kamper52/800/400", desc: "🍽️ 52 dni do poznania prawdziwych Olenderskich Smaków." }, // 52
+            { img: "https://picsum.photos/seed/kamper53/800/400", desc: "🧳 53 dni. Myślicie już o tym, co spakować?" }, // 53
+            { img: "https://picsum.photos/seed/kamper54/800/400", desc: "🚗 54 dni. Przed wami ponad 1400 kilometrów jednej wspaniałej drogi." }, // 54
+            { img: "https://picsum.photos/seed/kamper55/800/400", desc: "☀️ 55 dni do nieograniczonej dawki słońca." }, // 55
+            { img: "https://picsum.photos/seed/kamper56/800/400", desc: "📅 56 dni. Osiem pełnych tygodni!" }, // 56
+            { img: "https://picsum.photos/seed/kamper57/800/400", desc: "🏖️ 57 dni. Kemping San Marino jest warty każdej minuty trasy." }, // 57
+            { img: "https://picsum.photos/seed/kamper58/800/400", desc: "🥨 58 dni. Kto jest mistrzem kierownicy na waszej wycieczce?" }, // 58
+            { img: "https://picsum.photos/seed/kamper59/800/400", desc: "🚐 59 dni. Czas zacząć kompletować turystyczne krzesełka." }, // 59
+            { img: "https://picsum.photos/seed/kamper60/800/400", desc: "⌛ 60 dni. Zaledwie dwa miesiące dzielą nas od wspaniałej przygody!" }, // 60
+            { img: "https://picsum.photos/seed/kamper61/800/400", desc: "📅 61 dni do upragnionego urlopu." }, // 61
+            { img: "https://picsum.photos/seed/kamper62/800/400", desc: "🗓️ 62 dni. Startujemy z ostatecznym odliczaniem! Będzie niesamowicie!" }  // 62
+        ];
+
         var facts = [
             "LEGOLAND Deutschland Resort położony jest w Günzburgu (Bawaria), tuż przy autostradzie A8 między Stuttgartem a Monachium.",
             "Park otwarto 17 maja 2002 roku, jest jednym z największych parków rozrywki w Niemczech.",
@@ -611,7 +728,6 @@
             "Na samej plaży wypożyczysz kajaki lub rowerki wodne, pograsz w siatkówkę plażową albo wejdziesz do Aquaparku z dmuchanymi zjeżdżalniami."
         ];
 
-        // Bogata lista tekstów motywacyjnych
         var motivations = [
             "Każdy dzień przybliża Cię do zasłużonego odpoczynku! Wykorzystaj go dobrze.",
             "Praca smakuje znacznie lepiej, gdy wiesz, że na horyzoncie czekają wielkie przygody.",
@@ -638,7 +754,6 @@
             "Nic tak nie buduje dobrego humoru jak świadomość, że wielka trasa jest już dopracowana."
         ];
 
-        // Lista: Słowniczek podróżnika
         var dictionary = [
             { pl: "Dzień dobry", de: "Guten Tag", si: "Dober dan", hr: "Dobar dan" },
             { pl: "Dziękuję", de: "Danke", si: "Hvala", hr: "Hvala" },
@@ -657,7 +772,6 @@
             { pl: "Pomocy!", de: "Hilfe!", si: "Na pomoč!", hr: "Upomoć!" }
         ];
 
-        // Lista: Kulinarne inspiracje
         var foods = [
             { country: "🇩🇪 Niemcy (Bawaria)", name: "Bawarskie Precle (Brezel)", desc: "Tradycyjne, chrupiące z zewnątrz i miękkie w środku precle. Obowiązkowy dodatek do bawarskiego piwa!" },
             { country: "🇩🇪 Niemcy (Bawaria)", name: "Käsespätzle", desc: "Południowoniemieckie kluseczki zapiekane z dużą ilością ciągnącego się sera i posypane prażoną cebulką. Prawdziwe niebo w gębie." },
@@ -707,6 +821,13 @@
                 dayWord = "dzień";
             }
             document.getElementById("countdown").textContent = days + " " + dayWord + " do wyjazdu!";
+            
+            // Logika dla Widokówki Dnia
+            // Pobieramy dokładnie taką widokówkę, ile dni zostało, ale nie wykraczamy poza pulę (max 62)
+            var postcardIndex = Math.max(0, Math.min(days, 62));
+            var currentPostcard = postcards[postcardIndex];
+            document.getElementById("postcard-img").src = currentPostcard.img;
+            document.getElementById("postcard-caption").textContent = currentPostcard.desc;
             
             var start = new Date(); 
             start.setFullYear(2026, 5, 11);
