@@ -539,7 +539,7 @@
             margin-top: 10px;
         }
 
-        /* NOWE STYLE: Sekcja z SVG */
+        /* Sekcja z SVG */
         .params-section {
             margin-bottom: 30px;
         }
@@ -549,7 +549,7 @@
             border-radius: var(--border-radius);
             overflow: hidden;
             box-shadow: var(--shadow);
-            line-height: 0; /* Usuwa niepotrzebny pusty margines pod obrazkiem */
+            line-height: 0;
         }
 
         footer {
@@ -799,7 +799,7 @@
 
         <section class="params-section">
             <div class="svg-container">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="100%" height="100%" style="background-color: #020617; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 630" width="100%" height="100%" style="background-color: #020617; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;">
                   <defs>
                     <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
                       <feGaussianBlur stdDeviation="5" result="blur" />
@@ -811,9 +811,9 @@
                     </linearGradient>
                   </defs>
 
-                  <rect width="800" height="400" fill="#020617"/>
+                  <rect width="800" height="630" fill="#020617"/>
                   
-                  <rect x="20" y="20" width="760" height="360" rx="16" fill="url(#bgGrad)" stroke="#334155" stroke-width="2"/>
+                  <rect x="20" y="20" width="760" height="590" rx="16" fill="url(#bgGrad)" stroke="#334155" stroke-width="2"/>
 
                   <rect x="20" y="20" width="760" height="60" fill="#1e293b" rx="16"/>
                   <path d="M 20 80 L 780 80" stroke="#334155" stroke-width="2"/>
@@ -824,7 +824,6 @@
 
                   <g transform="translate(35, 110)">
                     <rect width="160" height="230" rx="12" fill="#0f172a" stroke="#475569" stroke-width="1"/>
-                    
                     <g transform="translate(80, 70)">
                       <line x1="-25" y1="-40" x2="25" y2="-40" stroke="#ef4444" stroke-width="4" stroke-linecap="round"/>
                       <line x1="-25" y1="40" x2="25" y2="40" stroke="#ef4444" stroke-width="4" stroke-linecap="round"/>
@@ -832,7 +831,6 @@
                       <polygon points="0,-35 -8,-22 8,-22" fill="#ef4444"/>
                       <polygon points="0,35 -8,22 8,22" fill="#ef4444"/>
                     </g>
-
                     <text x="80" y="170" fill="#ef4444" font-size="36" font-weight="900" text-anchor="middle" filter="url(#glow)">3.0 m</text>
                     <rect x="40" y="195" width="80" height="22" rx="4" fill="#1e293b"/>
                     <text x="80" y="210" fill="#94a3b8" font-size="12" font-weight="bold" letter-spacing="1" text-anchor="middle">WYSOKOŚĆ</text>
@@ -840,7 +838,6 @@
 
                   <g transform="translate(225, 110)">
                     <rect width="160" height="230" rx="12" fill="#0f172a" stroke="#475569" stroke-width="1"/>
-                    
                     <g transform="translate(80, 70)">
                       <line x1="-40" y1="-30" x2="-40" y2="30" stroke="#f97316" stroke-width="4" stroke-linecap="round"/>
                       <line x1="40" y1="-30" x2="40" y2="30" stroke="#f97316" stroke-width="4" stroke-linecap="round"/>
@@ -848,7 +845,6 @@
                       <polygon points="-35,0 -22,-8 -22,8" fill="#f97316"/>
                       <polygon points="35,0 22,-8 22,8" fill="#f97316"/>
                     </g>
-
                     <text x="80" y="170" fill="#f97316" font-size="36" font-weight="900" text-anchor="middle" filter="url(#glow)">2.5 m</text>
                     <rect x="40" y="195" width="80" height="22" rx="4" fill="#1e293b"/>
                     <text x="80" y="210" fill="#94a3b8" font-size="12" font-weight="bold" letter-spacing="1" text-anchor="middle">SZEROKOŚĆ</text>
@@ -856,7 +852,6 @@
 
                   <g transform="translate(415, 110)">
                     <rect width="160" height="230" rx="12" fill="#0f172a" stroke="#475569" stroke-width="1"/>
-                    
                     <g transform="translate(80, 70)">
                       <line x1="-45" y1="-10" x2="-45" y2="10" stroke="#38bdf8" stroke-width="4" stroke-linecap="round"/>
                       <line x1="45" y1="-10" x2="45" y2="10" stroke="#38bdf8" stroke-width="4" stroke-linecap="round"/>
@@ -864,37 +859,82 @@
                       <polygon points="-40,0 -27,-8 -27,8" fill="#38bdf8"/>
                       <polygon points="40,0 27,-8 27,8" fill="#38bdf8"/>
                     </g>
-
                     <text x="80" y="170" fill="#38bdf8" font-size="36" font-weight="900" text-anchor="middle" filter="url(#glow)">7.5 m</text>
-                    <rect x="25" y="195" width="110" height="22" rx="4" fill="#1e293b"/>
-                    <text x="80" y="210" fill="#94a3b8" font-size="12" font-weight="bold" letter-spacing="0.5" text-anchor="middle">DŁUGOŚĆ PRZYCZEPY</text>
+                    <rect x="20" y="195" width="120" height="22" rx="4" fill="#1e293b"/>
+                    <text x="80" y="210" fill="#94a3b8" font-size="11" font-weight="bold" letter-spacing="0.5" text-anchor="middle">DŁUGOŚĆ PRZYCZEPY</text>
                   </g>
 
                   <g transform="translate(605, 110)">
                     <rect width="160" height="230" rx="12" fill="#0f172a" stroke="#475569" stroke-width="1"/>
-                    
                     <g transform="translate(80, 70)">
                       <line x1="-65" y1="-15" x2="-65" y2="15" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
                       <line x1="65" y1="-15" x2="65" y2="15" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
-                      
                       <path d="M -50 0 L -30 0 L -25 -5 L -10 -5 L -5 0 L 0 0" fill="none" stroke="#10b981" stroke-width="2"/>
                       <circle cx="-42" cy="7" r="3" fill="#10b981"/>
                       <circle cx="-13" cy="7" r="3" fill="#10b981"/>
-                      
                       <rect x="5" y="-12" width="55" height="18" fill="none" stroke="#10b981" stroke-width="2"/>
                       <circle cx="15" cy="11" r="3" fill="#10b981"/>
                       <circle cx="50" cy="11" r="3" fill="#10b981"/>
-                      
                       <line x1="0" y1="0" x2="5" y2="0" stroke="#10b981" stroke-width="2"/>
-
                       <line x1="-55" y1="-25" x2="55" y2="-25" stroke="#10b981" stroke-width="2" stroke-dasharray="6 4"/>
                       <polygon points="-60,-25 -48,-31 -48,-19" fill="#10b981"/>
                       <polygon points="60,-25 48,-31 48,-19" fill="#10b981"/>
                     </g>
-
                     <text x="80" y="170" fill="#10b981" font-size="36" font-weight="900" text-anchor="middle" filter="url(#glow)">12.5 m</text>
                     <rect x="40" y="195" width="80" height="22" rx="4" fill="#1e293b"/>
                     <text x="80" y="210" fill="#94a3b8" font-size="12" font-weight="bold" letter-spacing="1" text-anchor="middle">ZESTAW</text>
+                  </g>
+
+                  <g transform="translate(80, 360)">
+                    <rect width="160" height="230" rx="12" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+                    <g transform="translate(80, 70)">
+                      <path d="M -15 -15 L -10 -35 L 10 -35 L 15 -15 Z" fill="#0f172a" stroke="#a855f7" stroke-width="2"/>
+                      <circle cx="0" cy="-39" r="4" fill="none" stroke="#a855f7" stroke-width="2"/>
+                      <text x="0" y="-19" fill="#a855f7" font-size="10" font-weight="bold" text-anchor="middle">KG</text>
+                      <path d="M -25 15 L -15 -5 L 15 -5 L 25 15 Z" fill="none" stroke="#a855f7" stroke-width="3" stroke-linejoin="round"/>
+                      <circle cx="-15" cy="20" r="4" fill="#a855f7"/>
+                      <circle cx="15" cy="20" r="4" fill="#a855f7"/>
+                    </g>
+                    <text x="80" y="170" fill="#a855f7" font-size="32" font-weight="900" text-anchor="middle" filter="url(#glow)">2990 kg</text>
+                    <rect x="30" y="195" width="100" height="22" rx="4" fill="#1e293b"/>
+                    <text x="80" y="210" fill="#94a3b8" font-size="11" font-weight="bold" letter-spacing="0.5" text-anchor="middle">DMC POJAZDU</text>
+                  </g>
+
+                  <g transform="translate(320, 360)">
+                    <rect width="160" height="230" rx="12" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+                    <g transform="translate(80, 70)">
+                      <path d="M -15 -15 L -10 -35 L 10 -35 L 15 -15 Z" fill="#0f172a" stroke="#06b6d4" stroke-width="2"/>
+                      <circle cx="0" cy="-39" r="4" fill="none" stroke="#06b6d4" stroke-width="2"/>
+                      <text x="0" y="-19" fill="#06b6d4" font-size="10" font-weight="bold" text-anchor="middle">KG</text>
+                      <rect x="-20" y="0" width="40" height="15" fill="none" stroke="#06b6d4" stroke-width="3" rx="1"/>
+                      <line x1="-30" y1="7" x2="-20" y2="7" stroke="#06b6d4" stroke-width="3"/>
+                      <circle cx="-10" cy="20" r="4" fill="#06b6d4"/>
+                      <circle cx="10" cy="20" r="4" fill="#06b6d4"/>
+                    </g>
+                    <text x="80" y="170" fill="#06b6d4" font-size="32" font-weight="900" text-anchor="middle" filter="url(#glow)">2000 kg</text>
+                    <rect x="20" y="195" width="120" height="22" rx="4" fill="#1e293b"/>
+                    <text x="80" y="210" fill="#94a3b8" font-size="11" font-weight="bold" letter-spacing="0.5" text-anchor="middle">DMC PRZYCZEPY</text>
+                  </g>
+
+                  <g transform="translate(560, 360)">
+                    <rect width="160" height="230" rx="12" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+                    <g transform="translate(80, 70)">
+                      <path d="M -15 -25 L -10 -45 L 10 -45 L 15 -25 Z" fill="#0f172a" stroke="#facc15" stroke-width="2"/>
+                      <circle cx="0" cy="-49" r="4" fill="none" stroke="#facc15" stroke-width="2"/>
+                      <text x="0" y="-29" fill="#facc15" font-size="10" font-weight="bold" text-anchor="middle">KG</text>
+                      <g transform="translate(0, 10)">
+                        <path d="M -40 5 L -30 -10 L -15 -10 L -5 5 Z" fill="none" stroke="#facc15" stroke-width="2" stroke-linejoin="round"/>
+                        <circle cx="-30" cy="10" r="3" fill="#facc15"/>
+                        <circle cx="-10" cy="10" r="3" fill="#facc15"/>
+                        <line x1="-5" y1="2" x2="5" y2="2" stroke="#facc15" stroke-width="2"/>
+                        <rect x="5" y="-10" width="35" height="15" fill="none" stroke="#facc15" stroke-width="2" rx="1"/>
+                        <circle cx="15" cy="10" r="3" fill="#facc15"/>
+                        <circle cx="35" cy="10" r="3" fill="#facc15"/>
+                      </g>
+                    </g>
+                    <text x="80" y="170" fill="#facc15" font-size="32" font-weight="900" text-anchor="middle" filter="url(#glow)">4990 kg</text>
+                    <rect x="20" y="195" width="120" height="22" rx="4" fill="#1e293b"/>
+                    <text x="80" y="210" fill="#94a3b8" font-size="11" font-weight="bold" letter-spacing="0.5" text-anchor="middle">ŁĄCZNIE DMC</text>
                   </g>
 
                 </svg>
