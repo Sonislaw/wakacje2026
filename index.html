@@ -230,7 +230,7 @@
             font-size: 1.1rem;
         }
 
-        /* NOWE STYLE: Sekcja Kulinarna */
+        /* Sekcja Kulinarna */
         .food-section {
             background-color: var(--card-bg);
             border-radius: var(--border-radius);
@@ -273,6 +273,106 @@
             font-size: 1.05rem;
             color: #444;
             line-height: 1.5;
+        }
+
+        /* NOWE STYLE: Harmonogram Trasy */
+        .itinerary-section {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .itinerary-section h2 {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .itinerary-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .itinerary-card {
+            background-color: #f0f4f5;
+            border-left: 5px solid var(--primary-color);
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        /* Styl dla dni wolnych od jazdy */
+        .itinerary-card.rest-day {
+            border-left-color: #bccad6; 
+            background-color: #fdfdfd;
+            border: 1px dashed #d0d8dc;
+            border-left: 5px solid #bccad6;
+        }
+
+        .itinerary-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 8px;
+            margin-bottom: 4px;
+        }
+
+        .itinerary-date {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        .itinerary-route {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: var(--text-color);
+        }
+
+        .itinerary-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .itinerary-detail-item {
+            background: #ffffff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .itinerary-border-info {
+            font-size: 0.85rem;
+            color: var(--accent-color);
+            background-color: #fff4f0;
+            padding: 6px 10px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 4px;
+            border: 1px dashed #f5caba;
+        }
+
+        .itinerary-target {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-top: 5px;
+            font-size: 1rem;
+            background-color: #e6eff2;
+            padding: 8px 12px;
+            border-radius: 6px;
         }
 
         footer {
@@ -361,6 +461,127 @@
                 <div class="food-desc" id="food-desc"></div>
             </div>
         </section>
+
+        <section class="itinerary-section">
+            <h2>🗺️ Plan Trasy i Harmonogram</h2>
+            <div class="itinerary-timeline">
+                
+                <div class="itinerary-card">
+                    <div class="itinerary-header">
+                        <span class="itinerary-date">12.08 (Środa)</span>
+                    </div>
+                    <div class="itinerary-route">Gdańsk ➔ Olandia</div>
+                    <div class="itinerary-details">
+                        <div class="itinerary-detail-item">🛣️ ~ 320 km</div>
+                        <div class="itinerary-detail-item">🟢 Start: 07:00</div>
+                        <div class="itinerary-detail-item">🏁 Przyjazd: 12:00</div>
+                    </div>
+                    <div class="itinerary-target">📍 Cel: Olandia Kamper Park</div>
+                </div>
+
+                <div class="itinerary-card rest-day">
+                    <div class="itinerary-header">
+                        <span class="itinerary-date">13.08 (Czwartek)</span>
+                    </div>
+                    <div class="itinerary-route">Olandia</div>
+                    <div class="itinerary-target" style="background: none; padding: 0; color: #666;">
+                        ☕ Cel: Relaks: jezioro i mini-zoo
+                    </div>
+                </div>
+
+                <div class="itinerary-card">
+                    <div class="itinerary-header">
+                        <span class="itinerary-date">14.08 (Piątek)</span>
+                    </div>
+                    <div class="itinerary-route">Olandia ➔ Lipsk</div>
+                    <div class="itinerary-details">
+                        <div class="itinerary-detail-item">🛣️ ~ 400 km</div>
+                        <div class="itinerary-detail-item">🟢 Start: 08:30</div>
+                        <div class="itinerary-detail-item">🏁 Przyjazd: 15:00</div>
+                    </div>
+                    <div class="itinerary-border-info">⚠️ Granica ~ 10:00 (PL/DE - Świecko)</div>
+                    <div class="itinerary-target">📍 Nocleg: 24-TOTAL Autohof Leipzig</div>
+                </div>
+
+                <div class="itinerary-card">
+                    <div class="itinerary-header">
+                        <span class="itinerary-date">15.08 (Sobota)</span>
+                    </div>
+                    <div class="itinerary-route">Lipsk ➔ Legoland</div>
+                    <div class="itinerary-details">
+                        <div class="itinerary-detail-item">🛣️ ~ 420 km</div>
+                        <div class="itinerary-detail-item">🟢 Start: 08:00</div>
+                        <div class="itinerary-detail-item">🏁 Przyjazd: 15:30</div>
+                    </div>
+                    <div class="itinerary-target">📍 Nocleg: LEGOLAND - Campingplatz</div>
+                </div>
+
+                <div class="itinerary-card rest-day">
+                    <div class="itinerary-header">
+                        <span class="itinerary-date">16.08 (Niedziela)</span>
+                    </div>
+                    <div class="itinerary-route">Legoland</div>
+                    <div class="itinerary-target" style="background: none; padding: 0; color: #666;">
+                        🎢 Cel: Dzień zabawy w parku
+                    </div>
+                </div>
+
+                <div class="itinerary-card">
+                    <div class="itinerary-header">
+                        <span class="itinerary-date">17.08 (Poniedziałek)</span>
+                    </div>
+                    <div class="itinerary-route">Legoland ➔ Sobec</div>
+                    <div class="itinerary-details">
+                        <div class="itinerary-detail-item">🛣️ ~ 420 km</div>
+                        <div class="itinerary-detail-item">🟢 Start: 08:00</div>
+                        <div class="itinerary-detail-item">🏁 Przyjazd: 16:00</div>
+                    </div>
+                    <div class="itinerary-border-info">⚠️ Granice: ~ 11:30 (DE/AT - Salzburg) | ~ 14:45 (AT/SLO - Karawanki)</div>
+                    <div class="itinerary-target">📍 Nocleg: Camping Sobec</div>
+                </div>
+
+                <div class="itinerary-card rest-day">
+                    <div class="itinerary-header">
+                        <span class="itinerary-date">18.08 (Wtorek)</span>
+                    </div>
+                    <div class="itinerary-route">Sobec</div>
+                    <div class="itinerary-target" style="background: none; padding: 0; color: #666;">
+                        ☕ Cel: Relaks
+                    </div>
+                </div>
+
+                <div class="itinerary-card">
+                    <div class="itinerary-header">
+                        <span class="itinerary-date">19.08 (Środa) - Część 1</span>
+                    </div>
+                    <div class="itinerary-route">Sobec ➔ Stinica</div>
+                    <div class="itinerary-details">
+                        <div class="itinerary-detail-item">🛣️ ~ 250 km</div>
+                        <div class="itinerary-detail-item">🟢 Start: 07:30</div>
+                        <div class="itinerary-detail-item">🏁 Przyjazd: 12:30</div>
+                    </div>
+                    <div class="itinerary-border-info">⚠️ Granica: ~ 09:30 (SLO/HR - Rupa / brak kontroli)</div>
+                    <div class="itinerary-target">⛴️ Cel: Kolejka do promu</div>
+                </div>
+
+                <div class="itinerary-card">
+                    <div class="itinerary-header">
+                        <span class="itinerary-date">19.08 (Środa) - Część 2</span>
+                    </div>
+                    <div class="itinerary-route">Mišnjak ➔ San Marino</div>
+                    <div class="itinerary-details">
+                        <div class="itinerary-detail-item">🛣️ ~ 25 km</div>
+                        <div class="itinerary-detail-item">🟢 Start: 14:30</div>
+                        <div class="itinerary-detail-item">🏁 Przyjazd: 15:00</div>
+                    </div>
+                    <div class="itinerary-target" style="background-color: var(--accent-color); color: white;">
+                        🌴 FINAŁ: San Marino (Lopar, Wyspa Rab)
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
     </main>
 
     <script>
@@ -436,13 +657,13 @@
             { pl: "Pomocy!", de: "Hilfe!", si: "Na pomoč!", hr: "Upomoć!" }
         ];
 
-        // NOWA LISTA: Kulinarne inspiracje
+        // Lista: Kulinarne inspiracje
         var foods = [
             { country: "🇩🇪 Niemcy (Bawaria)", name: "Bawarskie Precle (Brezel)", desc: "Tradycyjne, chrupiące z zewnątrz i miękkie w środku precle. Obowiązkowy dodatek do bawarskiego piwa!" },
             { country: "🇩🇪 Niemcy (Bawaria)", name: "Käsespätzle", desc: "Południowoniemieckie kluseczki zapiekane z dużą ilością ciągnącego się sera i posypane prażoną cebulką. Prawdziwe niebo w gębie." },
             { country: "🇩🇪 Niemcy", name: "Currywurst", desc: "Smażona kiełbasa wieprzowa pokrojona w plasterki, polana obficie sosem pomidorowym z curry. Często serwowana z frytkami." },
             { country: "🇸🇮 Słowenia", name: "Kremna rezina (Kremšnita)", desc: "Słynny deser z nad jeziora Bled. Warstwy chrupiącego ciasta francuskiego przełożone obfitą porcją lekkiego kremu waniliowego i śmietany." },
-            { country: "🇸🇮 Słowenia", name: "Kranjska klobasa", desc: "Tradycyjna, wędzona kiełbasa z grubo mielonej wieprzowiny z dodatkiem czosnku. Najlepiej smakuje z musztardą i świeżym pieczywem." },
+            { country: "🇸🇮 Słowenia", name: "Kranjska klobasa", desc: "Tradycyjne, wędzona kiełbasa z grubo mielonej wieprzowiny z dodatkiem czosnku. Najlepiej smakuje z musztardą i świeżym pieczywem." },
             { country: "🇸🇮 Słowenia", name: "Idrijski žlikrofi", desc: "Tradycyjne słoweńskie pierożki o charakterystycznym kształcie kapelusza, nadziewane farszem ziemniaczanym z ziołami i skwarkami." },
             { country: "🇭🇷 Chorwacja", name: "Ćevapčići", desc: "Niewielkie, grillowane ruloniki z mięsa mielonego. Zazwyczaj serwowane z płaskim chlebkiem (lepinja), posiekaną cebulą i pastą ajvar." },
             { country: "🇭🇷 Chorwacja", name: "Crni rižot", desc: "Czarne risotto. Swój niesamowity, głęboki kolor i wyjątkowy morski smak zawdzięcza atramentowi z kałamarnicy." },
@@ -457,7 +678,7 @@
             var factIndex = dayId % facts.length;
             var motivationIndex = dayId % motivations.length;
             var dictIndex = dayId % dictionary.length;
-            var foodIndex = dayId % foods.length; // Nowy indeks dla kulinariów
+            var foodIndex = dayId % foods.length; 
             
             document.getElementById("daily-fact").textContent = facts[factIndex];
             document.getElementById("daily-motivation").textContent = motivations[motivationIndex];
@@ -467,7 +688,6 @@
             document.getElementById("dict-si").textContent = dictionary[dictIndex].si;
             document.getElementById("dict-hr").textContent = dictionary[dictIndex].hr;
 
-            // Podmiana tekstów w sekcji kulinarnej
             document.getElementById("food-country").textContent = foods[foodIndex].country;
             document.getElementById("food-name").textContent = foods[foodIndex].name;
             document.getElementById("food-desc").textContent = foods[foodIndex].desc;
@@ -475,7 +695,7 @@
 
         function updateCountdown() {
             var now = new Date();
-            var target = new Date(Date.UTC(2026, 7, 12)); // 12 sierpnia 2026 r.
+            var target = new Date(Date.UTC(2026, 7, 12)); 
             target = new Date(target.getTime() + target.getTimezoneOffset() * 60000);
             
             var diff = target - now;
@@ -524,7 +744,6 @@
             }
         }
 
-        // Inicjalizacja skryptów po załadowaniu strony
         window.onload = function() {
             updateCountdown();
             getDailyContent();
