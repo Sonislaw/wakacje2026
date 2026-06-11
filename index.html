@@ -180,7 +180,7 @@
             font-size: 0.85rem;
         }
 
-        /* NOWE STYLE: Sekcja Słowniczka */
+        /* Sekcja Słowniczka */
         .dictionary-section {
             background-color: var(--card-bg);
             border-radius: var(--border-radius);
@@ -228,6 +228,51 @@
             color: var(--primary-color);
             font-weight: 600;
             font-size: 1.1rem;
+        }
+
+        /* NOWE STYLE: Sekcja Kulinarna */
+        .food-section {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .food-section h2 {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .food-card {
+            background-color: #fff9f5;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 5px solid var(--accent-color);
+        }
+
+        .food-country {
+            font-size: 0.9rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .food-name {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 12px;
+        }
+
+        .food-desc {
+            font-size: 1.05rem;
+            color: #444;
+            line-height: 1.5;
         }
 
         footer {
@@ -307,6 +352,15 @@
                 </div>
             </div>
         </section>
+
+        <section class="food-section">
+            <h2>🍽️ Danie na dziś</h2>
+            <div class="food-card">
+                <div class="food-country" id="food-country">Ładowanie...</div>
+                <div class="food-name" id="food-name">Wyszukiwanie przysmaku...</div>
+                <div class="food-desc" id="food-desc"></div>
+            </div>
+        </section>
     </main>
 
     <script>
@@ -363,7 +417,7 @@
             "Nic tak nie buduje dobrego humoru jak świadomość, że wielka trasa jest już dopracowana."
         ];
 
-        // NOWA LISTA: Słowniczek podróżnika
+        // Lista: Słowniczek podróżnika
         var dictionary = [
             { pl: "Dzień dobry", de: "Guten Tag", si: "Dober dan", hr: "Dobar dan" },
             { pl: "Dziękuję", de: "Danke", si: "Hvala", hr: "Hvala" },
@@ -382,23 +436,41 @@
             { pl: "Pomocy!", de: "Hilfe!", si: "Na pomoč!", hr: "Upomoć!" }
         ];
 
+        // NOWA LISTA: Kulinarne inspiracje
+        var foods = [
+            { country: "🇩🇪 Niemcy (Bawaria)", name: "Bawarskie Precle (Brezel)", desc: "Tradycyjne, chrupiące z zewnątrz i miękkie w środku precle. Obowiązkowy dodatek do bawarskiego piwa!" },
+            { country: "🇩🇪 Niemcy (Bawaria)", name: "Käsespätzle", desc: "Południowoniemieckie kluseczki zapiekane z dużą ilością ciągnącego się sera i posypane prażoną cebulką. Prawdziwe niebo w gębie." },
+            { country: "🇩🇪 Niemcy", name: "Currywurst", desc: "Smażona kiełbasa wieprzowa pokrojona w plasterki, polana obficie sosem pomidorowym z curry. Często serwowana z frytkami." },
+            { country: "🇸🇮 Słowenia", name: "Kremna rezina (Kremšnita)", desc: "Słynny deser z nad jeziora Bled. Warstwy chrupiącego ciasta francuskiego przełożone obfitą porcją lekkiego kremu waniliowego i śmietany." },
+            { country: "🇸🇮 Słowenia", name: "Kranjska klobasa", desc: "Tradycyjna, wędzona kiełbasa z grubo mielonej wieprzowiny z dodatkiem czosnku. Najlepiej smakuje z musztardą i świeżym pieczywem." },
+            { country: "🇸🇮 Słowenia", name: "Idrijski žlikrofi", desc: "Tradycyjne słoweńskie pierożki o charakterystycznym kształcie kapelusza, nadziewane farszem ziemniaczanym z ziołami i skwarkami." },
+            { country: "🇭🇷 Chorwacja", name: "Ćevapčići", desc: "Niewielkie, grillowane ruloniki z mięsa mielonego. Zazwyczaj serwowane z płaskim chlebkiem (lepinja), posiekaną cebulą i pastą ajvar." },
+            { country: "🇭🇷 Chorwacja", name: "Crni rižot", desc: "Czarne risotto. Swój niesamowity, głęboki kolor i wyjątkowy morski smak zawdzięcza atramentowi z kałamarnicy." },
+            { country: "🇭🇷 Chorwacja", name: "Peka", desc: "Tradycyjne danie przygotowywane pod specjalnym, żeliwnym dzwonem zasypanym żarem. Kryje w sobie powoli pieczone mięso (np. jagnięcinę) lub ośmiornicę z warzywami." },
+            { country: "🇭🇷 Chorwacja", name: "Burek", desc: "Złociste, chrupiące ciasto filo wypełnione najczęściej słonym serem, mięsem lub szpinakiem. Idealna przekąska do wzięcia w rękę podczas spaceru po mieście." }
+        ];
+
         function getDailyContent() {
             var now = new Date();
             var dayId = now.getFullYear() * 365 + (now.getMonth() + 1) * 31 + now.getDate();
             
             var factIndex = dayId % facts.length;
             var motivationIndex = dayId % motivations.length;
-            // Nowy indeks dla słowniczka
             var dictIndex = dayId % dictionary.length;
+            var foodIndex = dayId % foods.length; // Nowy indeks dla kulinariów
             
             document.getElementById("daily-fact").textContent = facts[factIndex];
             document.getElementById("daily-motivation").textContent = motivations[motivationIndex];
             
-            // Podmiana tekstów w słowniczku
             document.getElementById("dict-pl").textContent = dictionary[dictIndex].pl;
             document.getElementById("dict-de").textContent = dictionary[dictIndex].de;
             document.getElementById("dict-si").textContent = dictionary[dictIndex].si;
             document.getElementById("dict-hr").textContent = dictionary[dictIndex].hr;
+
+            // Podmiana tekstów w sekcji kulinarnej
+            document.getElementById("food-country").textContent = foods[foodIndex].country;
+            document.getElementById("food-name").textContent = foods[foodIndex].name;
+            document.getElementById("food-desc").textContent = foods[foodIndex].desc;
         }
 
         function updateCountdown() {
