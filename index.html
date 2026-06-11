@@ -186,7 +186,7 @@
             
             <div class="progress-container">
                 <progress id="progress" value="0" max="100"></progress>
-                <div class="progress-text">Postęp przygotowań: <span id="progress-percent">0</span>%</div>
+                <div class="progress-text">Ładowanie wakacji: <span id="progress-percent">0</span>%</div>
             </div>
         </section>
 
@@ -202,19 +202,7 @@
                 <p id="daily-fact">Wyszukiwanie ciekawostki...</p>
             </div>
         </section>
-
-        <!-- Kamienie milowe -->
-        <section class="milestones-card">
-            <h2>Nadchodzące kamienie milowe</h2>
-            <ul id="milestones" class="milestones-list">
-                <!-- Generowane przez JS -->
-            </ul>
-        </section>
     </main>
-
-    <footer>
-        Strona generuje automatycznie jeden stały tekst i jedną ciekawostkę na każdy dzień roku.
-    </footer>
 
     <script>
         // Lista ciekawostek (zgodna z przesłaną pulą)
@@ -315,19 +303,6 @@
             
             document.getElementById("progress").value = percent;
             document.getElementById("progress-percent").textContent = percent;
-            
-            // Kamienie milowe
-            var steps = [100, 90, 75, 50, 30, 14, 7, 1];
-            var milestones = document.getElementById("milestones");
-            milestones.innerHTML = "";
-            
-            steps.forEach(function(s) {
-                if (s <= days) {
-                    var li = document.createElement("li");
-                    li.textContent = s + " dni";
-                    milestones.appendChild(li);
-                }
-            });
         }
 
         // Inicjalizacja skryptów po załadowaniu strony
