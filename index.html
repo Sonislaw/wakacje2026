@@ -102,7 +102,7 @@
             font-weight: 500;
         }
 
-        /* NOWE STYLE: Widokówka Dnia */
+        /* Widokówka Dnia */
         .postcard-section {
             background-color: var(--card-bg);
             border-radius: var(--border-radius);
@@ -174,7 +174,7 @@
             color: #444;
         }
 
-        /* Sekcja Pogodowa */
+        /* ZAKTUALIZOWANE STYLE: Rozbudowana Sekcja Pogodowa */
         .weather-section {
             background-color: var(--card-bg);
             border-radius: var(--border-radius);
@@ -192,7 +192,7 @@
 
         .weather-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 15px;
         }
 
@@ -202,23 +202,77 @@
             border-radius: 12px;
             text-align: center;
             font-size: 0.9rem;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
 
         .weather-card h3 {
-            font-size: 1rem;
+            font-size: 1.05rem;
             color: var(--primary-color);
-            margin-bottom: 8px;
+            border-bottom: 1px solid #dcdcdc;
+            padding-bottom: 4px;
+        }
+
+        .weather-current {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 5px 0;
+        }
+
+        .weather-emoji {
+            font-size: 2rem;
         }
 
         .weather-temp {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: bold;
             color: var(--accent-color);
+        }
+
+        .weather-today-details {
+            font-size: 0.85rem;
+            color: #555;
+            background-color: #ffffff;
+            padding: 6px;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .weather-forecast-mini {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 5px;
+            padding-top: 5px;
+            border-top: 1px dashed #dcdcdc;
+        }
+
+        .forecast-day {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+
+        .forecast-label {
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 2px;
+        }
+
+        .forecast-temp {
+            color: var(--primary-color);
+            font-weight: 500;
         }
 
         .weather-error {
             color: #d9534f;
             font-size: 0.85rem;
+            margin: auto 0;
         }
 
         /* Sekcja Słowniczka */
@@ -461,23 +515,23 @@
         </section>
 
         <section class="weather-section">
-            <h2>🌤️ Aktualna pogoda na trasie</h2>
+            <h2>🌤️ Aktualna pogoda i prognoza na trasie</h2>
             <div class="weather-grid">
                 <div class="weather-card" id="weather-prusim">
                     <h3>Prusim (PL)</h3>
-                    <div class="weather-temp">--°C</div>
+                    <div class="weather-error">Ładowanie danych...</div>
                 </div>
                 <div class="weather-card" id="weather-gunzburg">
                     <h3>Günzburg (DE)</h3>
-                    <div class="weather-temp">--°C</div>
+                    <div class="weather-error">Ładowanie danych...</div>
                 </div>
                 <div class="weather-card" id="weather-lesce">
                     <h3>Lesce (SI)</h3>
-                    <div class="weather-temp">--°C</div>
+                    <div class="weather-error">Ładowanie danych...</div>
                 </div>
                 <div class="weather-card" id="weather-lopar">
                     <h3>Lopar (HR)</h3>
-                    <div class="weather-temp">--°C</div>
+                    <div class="weather-error">Ładowanie danych...</div>
                 </div>
             </div>
         </section>
@@ -633,76 +687,74 @@
     </main>
 
     <script>
-        // --- NOWA LISTA: 63 Widokówki na każdy dzień odliczania (od 62 dni do 0) ---
-        // Indeks w tablicy odpowiada dokładnie liczbie dni pozostałych do wyjazdu!
-        // Przykład: postcards[0] pokaże się w dniu wyjazdu (0 dni).
-        // Możesz podmienić 'img' na własne linki do zdjęć w dowolnym momencie.
+        // Lista Widokówek (63 elementy dopasowane do dni odliczania)
         var postcards = [
-            { img: "https://picsum.photos/seed/kamper0/800/400", desc: "🎉 TO JUŻ DZIŚ! 0 dni! Odpalamy silnik kampera i ruszamy po przygodę. Kierunek: Olandia!" }, // 0
-            { img: "https://picsum.photos/seed/kamper1/800/400", desc: "🎒 Został tylko 1 dzień! Ostatnie pakowanie. Kamper czeka gotowy na wielką trasę." }, // 1
-            { img: "https://picsum.photos/seed/kamper2/800/400", desc: "⏳ 2 dni. Emocje sięgają zenitu! Pamiętaliście o apteczce i biletach?" }, // 2
-            { img: "https://picsum.photos/seed/kamper3/800/400", desc: "🏖️ 3 dni. Wyspa Rab już powoli ukazuje się na horyzoncie naszych myśli." }, // 3
-            { img: "https://picsum.photos/seed/kamper4/800/400", desc: "🚐 4 dni. Zbliżamy się do startu wielkimi krokami." }, // 4
-            { img: "https://picsum.photos/seed/kamper5/800/400", desc: "⛴️ 5 dni. Kto nie może się już doczekać promu na wyspę Rab?" }, // 5
-            { img: "https://picsum.photos/seed/kamper6/800/400", desc: "🏔️ 6 dni. Alpy i słoweńskie krajobrazy wzywają!" }, // 6
-            { img: "https://picsum.photos/seed/kamper7/800/400", desc: "🇩🇪 7 dni. Zaledwie tydzień dzieli nas od wielkiej europejskiej trasy." }, // 7
-            { img: "https://picsum.photos/seed/kamper8/800/400", desc: "🎢 8 dni. Rollercoastery w Legolandzie są coraz bliżej." }, // 8
-            { img: "https://picsum.photos/seed/kamper9/800/400", desc: "🏕️ 9 dni do zapachu porannej kawy na kempingu w Słowenii." }, // 9
-            { img: "https://picsum.photos/seed/kamper10/800/400", desc: "🔟 Równo 10 dni! Odliczanie nabiera kosmicznego tempa." }, // 10
-            { img: "https://picsum.photos/seed/kamper11/800/400", desc: "🌊 11 dni. Ciepłe morze Adriatyckie czeka." }, // 11
-            { img: "https://picsum.photos/seed/kamper12/800/400", desc: "🧳 12 dni. Czy masz już przygotowaną matę plażową?" }, // 12
-            { img: "https://picsum.photos/seed/kamper13/800/400", desc: "🚐 13 dni. Nasz kamper to wkrótce nasz dom na kółkach!" }, // 13
-            { img: "https://picsum.photos/seed/kamper14/800/400", desc: "📅 14 dni. Równo dwa tygodnie do włączenia trybu WAKACJE." }, // 14
-            { img: "https://picsum.photos/seed/kamper15/800/400", desc: "🏰 15 dni. Zamek z klocków? Nie, to tylko Miniland w Niemczech!" }, // 15
-            { img: "https://picsum.photos/seed/kamper16/800/400", desc: "🍕 16 dni. Zbieramy apetyt na prawdziwą bałkańską ucztę." }, // 16
-            { img: "https://picsum.photos/seed/kamper17/800/400", desc: "🌅 17 dni do pierwszego zachodu słońca na trasie." }, // 17
-            { img: "https://picsum.photos/seed/kamper18/800/400", desc: "🌲 18 dni. Olandia i otulina puszczy będą wspaniałym początkiem." }, // 18
-            { img: "https://picsum.photos/seed/kamper19/800/400", desc: "🛣️ 19 dni. Setki kilometrów do zrobienia, miliony wspomnień do zdobycia." }, // 19
-            { img: "https://picsum.photos/seed/kamper20/800/400", desc: "☀️ 20 dni. Złapcie głęboki oddech, cel jest już naprawdę blisko." }, // 20
-            { img: "https://picsum.photos/seed/kamper21/800/400", desc: "📅 21 dni. Dokładnie 3 tygodnie do startu!" }, // 21
-            { img: "https://picsum.photos/seed/kamper22/800/400", desc: "🇩🇪 22 dni. Bawarskie autostrady i postoje w Autohof czekają." }, // 22
-            { img: "https://picsum.photos/seed/kamper23/800/400", desc: "🇸🇮 23 dni. Słowenia zaskoczy nas swoim wszechobecnym błękitem i zielenią." }, // 23
-            { img: "https://picsum.photos/seed/kamper24/800/400", desc: "🇭🇷 24 dni. Rajska Plaża (Paradise Beach) na wyspie Rab." }, // 24
-            { img: "https://picsum.photos/seed/kamper25/800/400", desc: "🚐 25 dni. Pamiętacie, żeby zabrać ulubioną kawę do kawiarki?" }, // 25
-            { img: "https://picsum.photos/seed/kamper26/800/400", desc: "💦 26 dni do szaleństw w wodzie." }, // 26
-            { img: "https://picsum.photos/seed/kamper27/800/400", desc: "🎵 27 dni. Czas zacząć myśleć nad wspólną muzyczną playlistą!" }, // 27
-            { img: "https://picsum.photos/seed/kamper28/800/400", desc: "📅 28 dni. Dokładnie 4 tygodnie do dnia zero." }, // 28
-            { img: "https://picsum.photos/seed/kamper29/800/400", desc: "😎 29 dni. Okulary przeciwsłoneczne gotowe?" }, // 29
-            { img: "https://picsum.photos/seed/kamper30/800/400", desc: "📅 30 dni! Równo miesiąc!" }, // 30
-            { img: "https://picsum.photos/seed/kamper31/800/400", desc: "🥨 31 dni do chrupiącego precla w południowych Niemczech." }, // 31
-            { img: "https://picsum.photos/seed/kamper32/800/400", desc: "🚐 32 dni do uruchomienia trybu pełnego relaksu." }, // 32
-            { img: "https://picsum.photos/seed/kamper33/800/400", desc: "🌞 33 dni do dni pełnych beztroski i ładowania baterii." }, // 33
-            { img: "https://picsum.photos/seed/kamper34/800/400", desc: "🌲 34 dni. Zapach lasu, szum jeziora, wolność." }, // 34
-            { img: "https://picsum.photos/seed/kamper35/800/400", desc: "📅 35 dni. Pięć tygodni dzieli nas od wyjazdu z Gdańska." }, // 35
-            { img: "https://picsum.photos/seed/kamper36/800/400", desc: "🏖️ 36 dni do spacerów wzdłuż cudownych plaż." }, // 36
-            { img: "https://picsum.photos/seed/kamper37/800/400", desc: "🚢 37 dni do rejsu promem Stinica - Mišnjak." }, // 37
-            { img: "https://picsum.photos/seed/kamper38/800/400", desc: "🏔️ 38 dni do majestatycznych widoków z Camping Sobec." }, // 38
-            { img: "https://picsum.photos/seed/kamper39/800/400", desc: "🏕️ 39 dni do pierwszej wspólnie rozłożonej markizy." }, // 39
-            { img: "https://picsum.photos/seed/kamper40/800/400", desc: "🧱 40 dni. Ponad 58 milionów klocków LEGO czeka na odkrycie!" }, // 40
-            { img: "https://picsum.photos/seed/kamper41/800/400", desc: "🗺️ 41 dni. Trasa zaplanowana perfekcyjnie." }, // 41
-            { img: "https://picsum.photos/seed/kamper42/800/400", desc: "📅 42 dni. Dokładnie 6 tygodni oczekiwania." }, // 42
-            { img: "https://picsum.photos/seed/kamper43/800/400", desc: "🍦 43 dni. Lody będą smakować wybornie." }, // 43
-            { img: "https://picsum.photos/seed/kamper44/800/400", desc: "📸 44 dni. Przygotujcie miejsce na telefonach, zdjęć będzie tysiące!" }, // 44
-            { img: "https://picsum.photos/seed/kamper45/800/400", desc: "🌅 45 dni. Wieczory przy kamperze to najlepsza integracja." }, // 45
-            { img: "https://picsum.photos/seed/kamper46/800/400", desc: "🚐 46 dni do tego uczucia, kiedy wszystkie okna są otwarte podczas jazdy." }, // 46
-            { img: "https://picsum.photos/seed/kamper47/800/400", desc: "🇸🇮 47 dni. Bled i Julijskie Alpy w pełnej krasie." }, // 47
-            { img: "https://picsum.photos/seed/kamper48/800/400", desc: "🇭🇷 48 dni do ciepłego wiatru na wyspie Rab." }, // 48
-            { img: "https://picsum.photos/seed/kamper49/800/400", desc: "📅 49 dni. Równo 7 tygodni." }, // 49
-            { img: "https://picsum.photos/seed/kamper50/800/400", desc: "🔟 50 dni. Łamiemy kolejną barierę w odliczaniu!" }, // 50
-            { img: "https://picsum.photos/seed/kamper51/800/400", desc: "🌊 51 dni do poczucia piasku pod stopami." }, // 51
-            { img: "https://picsum.photos/seed/kamper52/800/400", desc: "🍽️ 52 dni do poznania prawdziwych Olenderskich Smaków." }, // 52
-            { img: "https://picsum.photos/seed/kamper53/800/400", desc: "🧳 53 dni. Myślicie już o tym, co spakować?" }, // 53
-            { img: "https://picsum.photos/seed/kamper54/800/400", desc: "🚗 54 dni. Przed wami ponad 1400 kilometrów jednej wspaniałej drogi." }, // 54
-            { img: "https://picsum.photos/seed/kamper55/800/400", desc: "☀️ 55 dni do nieograniczonej dawki słońca." }, // 55
-            { img: "https://picsum.photos/seed/kamper56/800/400", desc: "📅 56 dni. Osiem pełnych tygodni!" }, // 56
-            { img: "https://picsum.photos/seed/kamper57/800/400", desc: "🏖️ 57 dni. Kemping San Marino jest warty każdej minuty trasy." }, // 57
-            { img: "https://picsum.photos/seed/kamper58/800/400", desc: "🥨 58 dni. Kto jest mistrzem kierownicy na waszej wycieczce?" }, // 58
-            { img: "https://picsum.photos/seed/kamper59/800/400", desc: "🚐 59 dni. Czas zacząć kompletować turystyczne krzesełka." }, // 59
-            { img: "https://picsum.photos/seed/kamper60/800/400", desc: "⌛ 60 dni. Zaledwie dwa miesiące dzielą nas od wspaniałej przygody!" }, // 60
-            { img: "https://picsum.photos/seed/kamper61/800/400", desc: "📅 61 dni do upragnionego urlopu." }, // 61
-            { img: "https://picsum.photos/seed/kamper62/800/400", desc: "🗓️ 62 dni. Startujemy z ostatecznym odliczaniem! Będzie niesamowicie!" }  // 62
+            { img: "https://picsum.photos/seed/kamper0/800/400", desc: "🎉 TO JUŻ DZIŚ! 0 dni! Odpalamy silnik kampera i ruszamy po przygodę. Kierunek: Olandia!" },
+            { img: "https://picsum.photos/seed/kamper1/800/400", desc: "🎒 Został tylko 1 dzień! Ostatnie pakowanie. Kamper czeka gotowy na wielką trasę." },
+            { img: "https://picsum.photos/seed/kamper2/800/400", desc: "⏳ 2 dni. Emocje sięgają zenitu! Pamiętaliście o apteczce i biletach?" },
+            { img: "https://picsum.photos/seed/kamper3/800/400", desc: "🏖️ 3 dni. Wyspa Rab już powoli ukazuje się na horyzoncie naszych myśli." },
+            { img: "https://picsum.photos/seed/kamper4/800/400", desc: "🚐 4 dni. Zbliżamy się do startu wielkimi krokami." },
+            { img: "https://picsum.photos/seed/kamper5/800/400", desc: "⛴️ 5 dni. Kto nie może się już doczekać promu na wyspę Rab?" },
+            { img: "https://picsum.photos/seed/kamper6/800/400", desc: "🏔️ 6 dni. Alpy i słoweńskie krajobrazy wzywają!" },
+            { img: "https://picsum.photos/seed/kamper7/800/400", desc: "🇩🇪 7 dni. Zaledwie tydzień dzieli nas od wielkiej europejskiej trasy." },
+            { img: "https://picsum.photos/seed/kamper8/800/400", desc: "🎢 8 dni. Rollercoastery w Legolandzie są coraz bliżej." },
+            { img: "https://picsum.photos/seed/kamper9/800/400", desc: "🏕️ 9 dni do zapachu porannej kawy na kempingu w Słowenii." },
+            { img: "https://picsum.photos/seed/kamper10/800/400", desc: "🔟 Równo 10 dni! Odliczanie nabiera kosmicznego tempa." },
+            { img: "https://picsum.photos/seed/kamper11/800/400", desc: "🌊 11 dni. Ciepłe morze Adriatyckie czeka." },
+            { img: "https://picsum.photos/seed/kamper12/800/400", desc: "🧳 12 dni. Czy masz już przygotowaną matę plażową?" },
+            { img: "https://picsum.photos/seed/kamper13/800/400", desc: "🚐 13 dni. Nasz kamper to wkrótce nasz dom na kółkach!" },
+            { img: "https://picsum.photos/seed/kamper14/800/400", desc: "📅 14 dni. Równo dwa tygodnie do włączenia trybu WAKACJE." },
+            { img: "https://picsum.photos/seed/kamper15/800/400", desc: "🏰 15 dni. Zamek z klocków? Nie, to tylko Miniland w Niemczech!" },
+            { img: "https://picsum.photos/seed/kamper16/800/400", desc: "🍕 16 dni. Zbieramy apetyt na prawdziwą bałkańską ucztę." },
+            { img: "https://picsum.photos/seed/kamper17/800/400", desc: "🌅 17 dni do pierwszego zachodu słońca na trasie." },
+            { img: "https://picsum.photos/seed/kamper18/800/400", desc: "🌲 18 dni. Olandia i otulina puszczy będą wspaniałym początkiem." },
+            { img: "https://picsum.photos/seed/kamper19/800/400", desc: "🛣️ 19 dni. Setki kilometrów do zrobienia, miliony wspomnień do zdobycia." },
+            { img: "https://picsum.photos/seed/kamper20/800/400", desc: "☀️ 20 dni. Złapcie głęboki oddech, cel jest już naprawdę blisko." },
+            { img: "https://picsum.photos/seed/kamper21/800/400", desc: "📅 21 dni. Dokładnie 3 tygodnie do startu!" },
+            { img: "https://picsum.photos/seed/kamper22/800/400", desc: "🇩🇪 22 dni. Bawarskie autostrady i postoje w Autohof czekają." },
+            { img: "https://picsum.photos/seed/kamper23/800/400", desc: "🇸🇮 23 dni. Słowenia zaskoczy nas swoim wszechobecnym błękitem i zielenią." },
+            { img: "https://picsum.photos/seed/kamper24/800/400", desc: "🇭🇷 24 dni. Rajska Plaża (Paradise Beach) na wyspie Rab." },
+            { img: "https://picsum.photos/seed/kamper25/800/400", desc: "🚐 25 dni. Pamiętacie, żeby zabrać ulubioną kawę do kawiarki?" },
+            { img: "https://picsum.photos/seed/kamper26/800/400", desc: "💦 26 dni do szaleństw w wodzie." },
+            { img: "https://picsum.photos/seed/kamper27/800/400", desc: "🎵 27 dni. Czas zacząć myśleć nad wspólną muzyczną playlistą!" },
+            { img: "https://picsum.photos/seed/kamper28/800/400", desc: "📅 28 dni. Dokładnie 4 tygodnie do dnia zero." },
+            { img: "https://picsum.photos/seed/kamper29/800/400", desc: "😎 29 dni. Okulary przeciwsłoneczne gotowe?" },
+            { img: "https://picsum.photos/seed/kamper30/800/400", desc: "📅 30 dni! Równo miesiąc!" },
+            { img: "https://picsum.photos/seed/kamper31/800/400", desc: "🥨 31 dni do chrupiącego precla w południowych Niemczech." },
+            { img: "https://picsum.photos/seed/kamper32/800/400", desc: "🚐 32 dni do uruchomienia trybu pełnego relaksu." },
+            { img: "https://picsum.photos/seed/kamper33/800/400", desc: "🌞 33 dni do dni pełnych beztroski i ładowania baterii." },
+            { img: "https://picsum.photos/seed/kamper34/800/400", desc: "🌲 34 dni. Zapach lasu, szum jeziora, wolność." },
+            { img: "https://picsum.photos/seed/kamper35/800/400", desc: "📅 35 dni. Pięć tygodni dzieli nas od wyjazdu z Gdańska." },
+            { img: "https://picsum.photos/seed/kamper36/800/400", desc: "🏖️ 36 dni do spacerów wzdłuż cudownćh plaż." },
+            { img: "https://picsum.photos/seed/kamper37/800/400", desc: "🚢 37 dni do rejsu promem Stinica - Mišnjak." },
+            { img: "https://picsum.photos/seed/kamper38/800/400", desc: "🏔️ 38 dni do majestatycznych widoków z Camping Sobec." },
+            { img: "https://picsum.photos/seed/kamper39/800/400", desc: "🏕️ 39 dni do pierwszej wspólnie rozłożonej markizy." },
+            { img: "https://picsum.photos/seed/kamper40/800/400", desc: "🧱 40 dni. Ponad 58 milionów klocków LEGO czeka na odkrycie!" },
+            { img: "https://picsum.photos/seed/kamper41/800/400", desc: "🗺️ 41 dni. Trasa zaplanowana perfekcyjnie." },
+            { img: "https://picsum.photos/seed/kamper42/800/400", desc: "📅 42 dni. Dokładnie 6 tygodni oczekiwania." },
+            { img: "https://picsum.photos/seed/kamper43/800/400", desc: "🍦 43 dni. Lody będą smakować wybornie." },
+            { img: "https://picsum.photos/seed/kamper44/800/400", desc: "📸 44 dni. Przygotujcie miejsce na telefonach, zdjęć będzie tysiące!" },
+            { img: "https://picsum.photos/seed/kamper45/800/400", desc: "🌅 45 dni. Wieczory przy kamperze to najlepsza integracja." },
+            { img: "https://picsum.photos/seed/kamper46/800/400", desc: "🚐 46 dni do tego uczucia, kiedy wszystkie okna są otwarte podczas jazdy." },
+            { img: "https://picsum.photos/seed/kamper47/800/400", desc: "🇸🇮 47 dni. Bled i Julijskie Alpy w pełnej krasie." },
+            { img: "https://picsum.photos/seed/kamper48/800/400", desc: "🇭🇷 48 dni do ciepłego wiatru na wyspie Rab." },
+            { img: "https://picsum.photos/seed/kamper49/800/400", desc: "📅 49 dni. Równo 7 tygodni." },
+            { img: "https://picsum.photos/seed/kamper50/800/400", desc: "🔟 50 dni. Łamiemy kolejną barierę w odliczaniu!" },
+            { img: "https://picsum.photos/seed/kamper51/800/400", desc: "🌊 51 dni do poczucia piasku pod stopami." },
+            { img: "https://picsum.photos/seed/kamper52/800/400", desc: "🍽️ 52 dni do poznania prawdziwych Olenderskich Smaków." },
+            { img: "https://picsum.photos/seed/kamper53/800/400", desc: "🧳 53 dni. Myślicie już o tym, co spakować?" },
+            { img: "https://picsum.photos/seed/kamper54/800/400", desc: "🚗 54 dni. Przed wami ponad 1400 kilometrów jednej wspaniałej drogi." },
+            { img: "https://picsum.photos/seed/kamper55/800/400", desc: "☀️ 55 dni do nieograniczonej dawki słońca." },
+            { img: "https://picsum.photos/seed/kamper56/800/400", desc: "📅 56 dni. Osiem pełnych tygodni!" },
+            { img: "https://picsum.photos/seed/kamper57/800/400", desc: "🏖️ 57 dni. Kemping San Marino jest warty każdej minuty trasy." },
+            { img: "https://picsum.photos/seed/kamper58/800/400", desc: "🥨 58 dni. Kto jest mistrzem kierownicy na waszej wycieczce?" },
+            { img: "https://picsum.photos/seed/kamper59/800/400", desc: "🚐 59 dni. Czas zacząć kompletровать turystyczne krzesełka." },
+            { img: "https://picsum.photos/seed/kamper60/800/400", desc: "⌛ 60 dni. Zaledwie dwa miesiące dzielą nas od wspaniałej przygody!" },
+            { img: "https://picsum.photos/seed/kamper61/800/400", desc: "📅 61 dni do upragnionego urlopu." },
+            { img: "https://picsum.photos/seed/kamper62/800/400", desc: "🗓️ 62 dni. Startujemy z ostatecznym odliczaniem! Będzie niesamowicie!" }
         ];
 
+        // Lista ciekawostek
         var facts = [
             "LEGOLAND Deutschland Resort położony jest w Günzburgu (Bawaria), tuż przy autostradzie A8 między Stuttgartem a Monachium.",
             "Park otwarto 17 maja 2002 roku, jest jednym z największych parków rozrywki w Niemczech.",
@@ -728,6 +780,7 @@
             "Na samej plaży wypożyczysz kajaki lub rowerki wodne, pograsz w siatkówkę plażową albo wejdziesz do Aquaparku z dmuchanymi zjeżdżalniami."
         ];
 
+        // Bogata lista tekstów motywacyjnych
         var motivations = [
             "Każdy dzień przybliża Cię do zasłużonego odpoczynku! Wykorzystaj go dobrze.",
             "Praca smakuje znacznie lepiej, gdy wiesz, że na horyzoncie czekają wielkie przygody.",
@@ -754,6 +807,7 @@
             "Nic tak nie buduje dobrego humoru jak świadomość, że wielka trasa jest już dopracowana."
         ];
 
+        // Lista: Słowniczek podróżnika
         var dictionary = [
             { pl: "Dzień dobry", de: "Guten Tag", si: "Dober dan", hr: "Dobar dan" },
             { pl: "Dziękuję", de: "Danke", si: "Hvala", hr: "Hvala" },
@@ -772,12 +826,13 @@
             { pl: "Pomocy!", de: "Hilfe!", si: "Na pomoč!", hr: "Upomoć!" }
         ];
 
+        // Lista: Kulinarne inspiracje
         var foods = [
             { country: "🇩🇪 Niemcy (Bawaria)", name: "Bawarskie Precle (Brezel)", desc: "Tradycyjne, chrupiące z zewnątrz i miękkie w środku precle. Obowiązkowy dodatek do bawarskiego piwa!" },
             { country: "🇩🇪 Niemcy (Bawaria)", name: "Käsespätzle", desc: "Południowoniemieckie kluseczki zapiekane z dużą ilością ciągnącego się sera i posypane prażoną cebulką. Prawdziwe niebo w gębie." },
             { country: "🇩🇪 Niemcy", name: "Currywurst", desc: "Smażona kiełbasa wieprzowa pokrojona w plasterki, polana obficie sosem pomidorowym z curry. Często serwowana z frytkami." },
             { country: "🇸🇮 Słowenia", name: "Kremna rezina (Kremšnita)", desc: "Słynny deser z nad jeziora Bled. Warstwy chrupiącego ciasta francuskiego przełożone obfitą porcją lekkiego kremu waniliowego i śmietany." },
-            { country: "🇸🇮 Słowenia", name: "Kranjska klobasa", desc: "Tradycyjne, wędzona kiełbasa z grubo mielonej wieprzowiny z dodatkiem czosnku. Najlepiej smakuje z musztardą i świeżym pieczywem." },
+            { country: "🇸🇮 Słowenia", name: "Kranjska klobasa", desc: "Tradycyjna, wędzona kiełbasa z grubo mielonej wieprzowiny z dodatkiem czosnku. Najlepiej smakuje z musztardą i świeżym pieczywem." },
             { country: "🇸🇮 Słowenia", name: "Idrijski žlikrofi", desc: "Tradycyjne słoweńskie pierożki o charakterystycznym kształcie kapelusza, nadziewane farszem ziemniaczanym z ziołami i skwarkami." },
             { country: "🇭🇷 Chorwacja", name: "Ćevapčići", desc: "Niewielkie, grillowane ruloniki z mięsa mielonego. Zazwyczaj serwowane z płaskim chlebkiem (lepinja), posiekaną cebulą i pastą ajvar." },
             { country: "🇭🇷 Chorwacja", name: "Crni rižot", desc: "Czarne risotto. Swój niesamowity, głęboki kolor i wyjątkowy morski smak zawdzięcza atramentowi z kałamarnicy." },
@@ -822,8 +877,6 @@
             }
             document.getElementById("countdown").textContent = days + " " + dayWord + " do wyjazdu!";
             
-            // Logika dla Widokówki Dnia
-            // Pobieramy dokładnie taką widokówkę, ile dni zostało, ale nie wykraczamy poza pulę (max 62)
             var postcardIndex = Math.max(0, Math.min(days, 62));
             var currentPostcard = postcards[postcardIndex];
             document.getElementById("postcard-img").src = currentPostcard.img;
@@ -841,6 +894,7 @@
             document.getElementById("progress-percent").textContent = percent;
         }
 
+        // ZAKTUALIZOWANA FUNKCJA: Pobieranie rozbudowanej pogody i prognozy
         async function fetchWeather() {
             const locations = [
                 { id: 'weather-prusim', lat: 52.593, lon: 15.934 },
@@ -849,18 +903,78 @@
                 { id: 'weather-lopar', lat: 44.828, lon: 14.737 }
             ];
 
+            // Mapowanie kodów pogodowych WMO na ikony emoji
+            function getWeatherEmoji(code) {
+                if (code === 0) return "☀️"; // czyste niebo
+                if ([1, 2, 3].includes(code)) return "⛅"; // częściowe zachmurzenie
+                if ([45, 48].includes(code)) return "🌫️"; // mgła
+                if ([51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82].includes(code)) return "🌧️"; // deszcz / mżawka
+                if ([71, 73, 75, 77, 85, 86].includes(code)) return "🌨️"; // śnieg
+                if ([95, 96, 99].includes(code)) return "⛈️"; // burza
+                return "☁️"; // pełne zachmurzenie
+            }
+
             for (const loc of locations) {
-                const element = document.querySelector(`#${loc.id} .weather-temp`);
+                const card = document.getElementById(loc.id);
                 try {
-                    const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${loc.lat}&longitude=${loc.lon}&current_weather=true`);
+                    // Żądanie pobierające pogodę aktualną oraz prognozę dzienną na 3 dni (max/min temp, szansa opadów, kod pogodowy)
+                    const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${loc.lat}&longitude=${loc.lon}&current_weather=true&daily=temperature_2m_max,temperature_2m_min,precipitation_probability,weathercode&forecast_days=3&timezone=auto`);
                     if (!response.ok) throw new Error("Błąd sieci");
                     const data = await response.json();
                     
-                    const temp = Math.round(data.current_weather.temperature);
-                    element.textContent = `${temp}°C`;
+                    // Dane aktualne
+                    const currentTemp = Math.round(data.current_weather.temperature);
+                    const currentCode = data.current_weather.weathercode;
+                    
+                    // Dzisiejsza prognoza szczegółowa
+                    const todayMax = Math.round(data.daily.temperature_2m_max[0]);
+                    const todayMin = Math.round(data.daily.temperature_2m_min[0]);
+                    const todayRainProb = data.daily.precipitation_probability[0];
+                    
+                    // Jutro
+                    const tomorrowMax = Math.round(data.daily.temperature_2m_max[1]);
+                    const tomorrowMin = Math.round(data.daily.temperature_2m_min[1]);
+                    const tomorrowEmoji = getWeatherEmoji(data.daily.weathercode[1]);
+                    
+                    // Pojutrze
+                    const dayAfterMax = Math.round(data.daily.temperature_2m_max[2]);
+                    const dayAfterMin = Math.round(data.daily.temperature_2m_min[2]);
+                    const dayAfterEmoji = getWeatherEmoji(data.daily.weathercode[2]);
+
+                    // Bezpieczna podmiana HTML przy zachowaniu nagłówka lokalizacji
+                    const cleanName = loc.id === 'weather-prusim' ? 'Prusim (PL)' : 
+                                      loc.id === 'weather-gunzburg' ? 'Günzburg (DE)' : 
+                                      loc.id === 'weather-lesce' ? 'Lesce (SI)' : 'Lopar (HR)';
+
+                    card.innerHTML = `
+                        <h3>${cleanName}</h3>
+                        <div class="weather-current">
+                            <span class="weather-emoji">${getWeatherEmoji(currentCode)}</span>
+                            <span class="weather-temp">${currentTemp}°C</span>
+                        </div>
+                        <div class="weather-today-details">
+                            <span>📈 Max: ${todayMax}°C | 📉 Min: ${todayMin}°C</span>
+                            <span>💧 Szansa deszczu: <b>${todayRainProb}%</b></span>
+                        </div>
+                        <div class="weather-forecast-mini">
+                            <div class="forecast-day">
+                                <span class="forecast-label">Jutro</span>
+                                <span>${tomorrowEmoji}</span>
+                                <span class="forecast-temp">${tomorrowMax}/${tomorrowMin}°C</span>
+                            </div>
+                            <div class="forecast-day">
+                                <span class="forecast-label">Pojutrze</span>
+                                <span>${dayAfterEmoji}</span>
+                                <span class="forecast-temp">${dayAfterMax}/${dayAfterMin}°C</span>
+                            </div>
+                        </div>
+                    `;
                 } catch (error) {
                     console.error("Nie udało się pobrać pogody dla", loc.id, error);
-                    element.innerHTML = `<span class="weather-error">Brak danych</span>`;
+                    const cleanName = loc.id === 'weather-prusim' ? 'Prusim (PL)' : 
+                                      loc.id === 'weather-gunzburg' ? 'Günzburg (DE)' : 
+                                      loc.id === 'weather-lesce' ? 'Lesce (SI)' : 'Lopar (HR)';
+                    card.innerHTML = `<h3>${cleanName}</h3><div class="weather-error">Brak danych pogodowych</div>`;
                 }
             }
         }
